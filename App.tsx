@@ -1,20 +1,11 @@
-import { StatusBar } from "react-native";
-import { StyleSheet, Text, View } from 'react-native';
+
+import { StyleSheet } from 'react-native';
+import StartGameScreen from './screens/StartGameScreen';
 
 export default function App() {
-  return(
-    <View style={styles.container}>
-      <Text>Hellow!</Text>
-      <StatusBar barStyle="default"/>
-    </View>
+  return (
+    <StartGameScreen />
   )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+const styles = StyleSheet.create({});
