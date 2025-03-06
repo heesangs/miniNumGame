@@ -1,8 +1,9 @@
 import { useState } from 'react';
 import { TextInput, View, StyleSheet, Alert } from 'react-native'
+import Color from '../constant/color';
 
 import PrimaryButton from '../components/PrimaryButton';
-function StartGameScreen() {
+function StartGameScreen({ onPickNumber }) {
     const [enteredNumber, setEnteredNumber] = useState('')
     function numberInputHandler(enterdText) {
         setEnteredNumber(enterdText)
@@ -12,14 +13,15 @@ function StartGameScreen() {
     }
     function confirmInputHandler() {
         const chosenNumber = parseInt(enteredNumber);
-        Alert.alert(
-            '잘못된 번호입니다.',
-            '숫자는 1~99사이만 입력해야합니다.',
-            [{ text: '확인', style: 'destructive', onPress: resetInputHandler }]
-        )
         if (isNaN(chosenNumber) || chosenNumber <= 0 || chosenNumber > 99) {
-            return; //여기에서 리턴은 '취소'를 의미한다.
+            Alert.alert(
+                '잘못된 번호입니다.',
+                '숫자는 1~99사이만 입력해야합니다.',
+                [{ text: '확인', style: 'destructive', onPress: resetInputHandler }]
+            )
+            return;
         }
+        onPickNumber(chosenNumber);
     }
     return (
         <View style={styles.inputContainer}>
@@ -54,7 +56,7 @@ const styles = StyleSheet.create({
         marginTop: 100,
         padding: 16,
         borderRadius: 8,
-        backgroundColor: '#4e0329',
+        backgroundColor: Color.primary700,
         elevation: 32,
         shadowColor: 'black',
         shadowOffset: { width: 0, height: 2 },
@@ -71,9 +73,9 @@ const styles = StyleSheet.create({
     numberInput: {
         width: 50,
         fontSize: 32,
-        borderBottomColor: '#ddb52f',
+        borderBottomColor: Color.accent500,
         borderBottomWidth: 2,
-        color: '#ddb52f',
+        color: Color.accent500,
         marginVertical: 8,
         fontWeight: 'bold',
         textAlign: 'center'

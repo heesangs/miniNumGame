@@ -1,4 +1,5 @@
 import { View, Text, Pressable, StyleSheet } from "react-native";
+import Color from "../constant/color";
 
 function PrimaryButton({ children, onPress }) {
     return (
@@ -24,7 +25,7 @@ const styles = StyleSheet.create({
         marginVertical: 8,
     },
     buttonInnerContainer: {
-        backgroundColor: '#72063c',
+        backgroundColor: Color.primary500,
         paddingVertical: 8,
         paddingHorizontal: 16,
         alignItems: 'center',
