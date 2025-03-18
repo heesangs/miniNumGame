@@ -11,7 +11,7 @@ export default function App() {
   const [gameIsOver, setGameIsOver] = useState(true);
 
   function pickedNumberHandler(pickedNumber) {
-    setUserNumber(pickedNumber)
+    setUserNumber(pickedNumber) //setUserNumber가 실행되면 userNumber가 업데이트된다. 
     setGameIsOver(false);
   }
 
