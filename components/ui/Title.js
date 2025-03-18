@@ -7,12 +7,13 @@ export default Title;
 
 const styles = StyleSheet.create({
     title: {
-        fontFamily: 'Pretendard-Bold',
+        fontFamily: 'PretendardStd-Light',
         fontSize: 24,
         color: 'white',
         textAlign: 'center',
         borderWidth: 2,
         borderColor: 'white',
         lineHeight: 48,
+        paddingHorizontal: 24,
     }
 })
