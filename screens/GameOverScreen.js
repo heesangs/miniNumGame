@@ -3,7 +3,7 @@ import Title from '../components/ui/Title';
 import PrimaryButton from '../components/ui/PrimaryButton';
 import Color from '../constant/color'
 
-function GameOverScreen() {
+function GameOverScreen({roundsNumber, userNumber, onStartNewGame}) {
     return (
         <View style={styles.rootContainer}>
             <Title>Game Over!!</Title>
@@ -15,13 +15,13 @@ function GameOverScreen() {
             </View>
             <View>
                 <Text style={styles.summaryText}>당신의 핸드폰은
-                    <Text style={styles.pointText}>X</Text>
+                    <Text style={styles.pointText}>{roundsNumber}</Text>
                     번의 라운드 만에 숫자
-                    <Text style={styles.pointText}>Y</Text>
+                    <Text style={styles.pointText}>{userNumber}</Text>
                     를 맞혔습니다.
                 </Text>
             </View>
-            <PrimaryButton>Start New Game</PrimaryButton>
+            <PrimaryButton onPress={onStartNewGame}>Start New Game</PrimaryButton>
         </View>
     )
 }

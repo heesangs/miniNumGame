@@ -7,16 +7,22 @@ import Color from './constant/color';
 import GameOverScreen from './screens/GameOverScreen';
 
 export default function App() {
-  const [userNumber, setUserNumber] = useState();
+  const [userNumber, setUserNumber] = useState<number | null>(null);
   const [gameIsOver, setGameIsOver] = useState(true);
+  const [guessRound, setGuessRound] = useState(0);
 
-  function pickedNumberHandler(pickedNumber) {
+  function pickedNumberHandler(pickedNumber: number) {
     setUserNumber(pickedNumber) //setUserNumber가 실행되면 userNumber가 업데이트된다. 
     setGameIsOver(false);
   }
 
   function gameOverHandler() {
     setGameIsOver(true);
+  }
+
+  function restartHandler() {
+    setUserNumber(null);
+    setGuessRound(0);
   }
 
   let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />
@@ -26,8 +32,9 @@ export default function App() {
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen />
+    screen = <GameOverScreen userNumber={userNumber} roundsNumber={guessRound} onStartNewGame={restartHandler} />
   }
+
 
 
   return (

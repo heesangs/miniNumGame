@@ -21,8 +21,9 @@ let minBoundary = 1;
 let maxBoundary = 100;
 
 function GameScreen({ userNumber, onGameOver }) {
-    const initialGuess = generateRandomBetween(1, 100, userNumber)
-    const [currentGuess, setCurrentGuess] = useState(initialGuess)
+    const initialGuess = generateRandomBetween(1, 100, userNumber);
+    const [currentGuess, setCurrentGuess] = useState(initialGuess);
+    const [guessRound, setGuessRound] = useState([initialGuess]);
 
     useEffect(() => {
         if (currentGuess === userNumber) {
@@ -30,9 +31,14 @@ function GameScreen({ userNumber, onGameOver }) {
         }
     }, [currentGuess, userNumber, onGameOver]); //해당 3개의 인자들중 값이 바뀌면 useEffect를 재실행한다.
 
-    function nextGuessHandler(directioin) { //=> direction 'lower', 'greater' 
-        if ((directioin === 'lower' && currentGuess < userNumber) ||
-            (directioin === 'greater' && currentGuess > userNumber)
+    useEffect(() => {
+        minBoundary = 1;
+        maxBoundary = 100;
+    }, []) //빈 배열이므로 컴포넌트가 마운트 될때 한번만 실행.
+
+    function nextGuessHandler(direction) { //=> direction 'lower', 'greater' 
+        if ((direction === 'lower' && currentGuess < userNumber) ||
+            (direction === 'greater' && currentGuess > userNumber)
         ) {
             Alert.alert(
                 '+,-를 잘못입력했어요.',
@@ -41,7 +47,7 @@ function GameScreen({ userNumber, onGameOver }) {
             )
             return;
         }
-        if (directioin === 'lower') {
+        if (direction === 'lower') {
             maxBoundary = currentGuess;
         } else {
             minBoundary = currentGuess + 1;
@@ -49,6 +55,7 @@ function GameScreen({ userNumber, onGameOver }) {
         console.log(minBoundary, maxBoundary);
         const newRanNum = generateRandomBetween(minBoundary, maxBoundary, currentGuess)
         setCurrentGuess(newRanNum);
+        setGuessRound(prevGuessRounds => [newRanNum, ...prevGuessRounds])
     }
 
     return (
@@ -71,7 +78,7 @@ function GameScreen({ userNumber, onGameOver }) {
                 </View>
             </Card>
             <View>
-                <Text>data log</Text>
+                {guessRound.map(guessRound=> <Text key={guessRound}>{guessRound}</Text>)}
             </View>
         </View>
     )
