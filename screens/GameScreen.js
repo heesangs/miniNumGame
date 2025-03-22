@@ -1,11 +1,12 @@
 import { useState, useEffect } from "react";
-import { StyleSheet, Text, View, Alert } from "react-native";
+import { StyleSheet, Text, View, Alert, FlatList } from "react-native";
 import Title from "../components/ui/Title";
 import NumberContainer from "../components/game/NumberContainer";
 import PrimaryButton from "../components/ui/PrimaryButton";
 import Card from "../components/ui/Card";
 import InstructionText from "../components/ui/InstructionText";
 import Ionicons from 'react-native-vector-icons/Ionicons';
+import GuessLogItem from "../components/game/GuessLogItem";
 
 function generateRandomBetween(min, max, exclude) {
     const rndNum = Math.floor(Math.random() * (max - min)) + min;
@@ -27,7 +28,7 @@ function GameScreen({ userNumber, onGameOver }) {
 
     useEffect(() => {
         if (currentGuess === userNumber) {
-            onGameOver();
+            onGameOver(guessRound.length);
         }
     }, [currentGuess, userNumber, onGameOver]); //해당 3개의 인자들중 값이 바뀌면 useEffect를 재실행한다.
 
@@ -58,6 +59,8 @@ function GameScreen({ userNumber, onGameOver }) {
         setGuessRound(prevGuessRounds => [newRanNum, ...prevGuessRounds])
     }
 
+    const guessRoundsListLength = guessRound.length;
+
     return (
         <View style={styles.container}>
             <Title >Opponent's GUESS</Title>
@@ -77,8 +80,18 @@ function GameScreen({ userNumber, onGameOver }) {
                     </View>
                 </View>
             </Card>
-            <View>
-                {guessRound.map(guessRound=> <Text key={guessRound}>{guessRound}</Text>)}
+            <View style={styles.containerList}>
+                {/* {guessRound.map(guessRound => <Text key={guessRound}>{guessRound}</Text>)} */}
+                <FlatList
+                    contentContainerStyle={{ paddingBottom: 20, flexGrow: 1 }}
+                    style={{ marginVertical: 8 }}
+                    data={guessRound}
+                    renderItem={(itemData) => <GuessLogItem
+                        roundNumber={guessRoundsListLength - itemData.index} // 역순으로 라운드를 매기기 위한 로직
+                        guess={itemData.item} // 현재 항목의 추측값
+                    />}
+                    keyExtractor={(item) => item}
+                />
             </View>
         </View>
     )
@@ -86,6 +99,12 @@ function GameScreen({ userNumber, onGameOver }) {
 export default GameScreen;
 
 const styles = StyleSheet.create({
+    containerList: {
+        flex: 1,
+        padding: 16,
+       
+
+    },
     container: {
         flex: 1,
         padding: 24,
