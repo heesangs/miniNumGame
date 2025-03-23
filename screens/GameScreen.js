@@ -102,12 +102,11 @@ const styles = StyleSheet.create({
     containerList: {
         flex: 1,
         padding: 16,
-       
-
     },
     container: {
         flex: 1,
         padding: 24,
+        alignItems: 'center'
     },
     buttonFrame: {
         flexDirection: 'row',
@@ -115,9 +114,9 @@ const styles = StyleSheet.create({
     },
     buttonStyle: {
         flex: 1,
-
     },
     titleSpace: {
         marginBottom: 12,
     }
 })
+

@@ -1,4 +1,4 @@
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import Color from '../../constant/color'
 
 function Card({ children }) {
@@ -9,13 +9,15 @@ function Card({ children }) {
 
 export default Card;
 
+const deviceWidth = Dimensions.get('window').width;
+
 const styles = StyleSheet.create({
     inputContainer: {
         alignItems: 'center',
         //가로축에 세로 정렬 센터로 하기
-        marginHorizontal: 24,
-        marginTop: 100,
-        padding: 16,
+        marginHorizontal: deviceWidth < 380 ? 24 : 32,
+        marginTop: 40,
+        padding: deviceWidth < 380 ? 16 : 32,
         borderRadius: 8,
         backgroundColor: Color.primary700,
         elevation: 32,
