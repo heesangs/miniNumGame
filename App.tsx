@@ -12,7 +12,7 @@ export default function App() {
   const [guessRound, setGuessRound] = useState(0);
 
   function pickedNumberHandler(pickedNumber: number) {
-    setUserNumber(pickedNumber) //setUserNumber가 실행되면 userNumber가 업데이트된다. 
+    setUserNumber(pickedNumber); //setUserNumber가 실행되면 userNumber가 업데이트된다. 
     setGameIsOver(false);
   }
 
@@ -26,17 +26,15 @@ export default function App() {
     setGuessRound(0);
   }
 
-  let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />
+  let screen = <StartGameScreen onPickNumber={pickedNumberHandler} />;
 
   if (userNumber) {
-    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />
+    screen = <GameScreen userNumber={userNumber} onGameOver={gameOverHandler} />;
   }
 
   if (gameIsOver && userNumber) {
-    screen = <GameOverScreen userNumber={userNumber} roundsNumber={guessRound} onStartNewGame={restartHandler} />
+    screen = <GameOverScreen userNumber={userNumber} roundsNumber={guessRound} onStartNewGame={restartHandler} />;
   }
-
-
 
   return (
     <LinearGradient
@@ -50,12 +48,11 @@ export default function App() {
         resizeMode='cover'
         style={styles.rootBgColor}
         imageStyle={styles.imageStyle}
-
       >
         <SafeAreaView style={styles.rootScreen}>{screen}</SafeAreaView>
       </ImageBackground>
     </LinearGradient>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
